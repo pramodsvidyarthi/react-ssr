@@ -4,12 +4,12 @@ const autoprefixer = require("autoprefixer");
 
 const browserConfig = {
   entry: "./src/browser/index.js",
-  ouput: {
+  output: {
     path: __dirname,
     filename: "./public/bundle.js"
   },
   devtool: "cheap-module-source-map",
-  modules: {
+  module: {
     rules: [
       {
         test: /\.(svg|png|jpg|gif)$/,
@@ -61,20 +61,17 @@ const serverConfig = {
     filename: "server.js",
     libraryTarget: "commonjs2"
   },
-  modules: {
+  devtool: "cheap-module-source-map",
+  module: {
     rules: [
       {
-        test: /\.(svg|png|jpg|gif)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "public/media/[name].[ext]",
-              publicPath: url => url.replace("/public/", ""),
-              emit: false
-            }
-          }
-        ]
+        test: [/\.svg$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: "file-loader",
+        options: {
+          name: "public/media/[name].[ext]",
+          publicPath: url => url.replace(/public/, ""),
+          emit: false
+        }
       },
       {
         test: /\.css$/,
