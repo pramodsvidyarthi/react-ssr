@@ -1,6 +1,6 @@
-import webpack from "webpack";
-import ExtractTextWebpackPlugin from "extract-text-webpack-plugin";
-import autoprefixer from "autoprefixer";
+const webpack = require("webpack");
+const ExtractTextWebpackPlugin = require("extract-text-webpack-plugin");
+const autoprefixer = require("autoprefixer");
 
 const browserConfig = {
   entry: "./src/browser/index.js",
@@ -94,4 +94,4 @@ const serverConfig = {
   }
 };
 
-export default [browserConfig, serverConfig];
+module.exports = [browserConfig, serverConfig];
