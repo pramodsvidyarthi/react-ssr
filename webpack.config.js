@@ -12,6 +12,15 @@ const browserConfig = {
   module: {
     rules: [
       {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        loader: "url-loader",
+        options: {
+          limit: 100000,
+          name: "public/fonts/[name].[ext]",
+          publicPath: url => url.replace("/public/", "")
+        }
+      },
+      {
         test: /\.(svg|png|jpg|gif)$/,
         use: [
           {
@@ -25,7 +34,9 @@ const browserConfig = {
       },
       {
         test: /\.css$/,
+        include: /node_modules/,
         use: ExtractTextWebpackPlugin.extract({
+          fallback: "style-loader",
           use: [
             {
               loader: "css-loader",
@@ -33,7 +44,10 @@ const browserConfig = {
             },
             {
               loader: "postcss-loader",
-              options: { plugins: [autoprefixer()] }
+              options: {
+                ident: "postcss",
+                plugins: [autoprefixer()]
+              }
             }
           ]
         })
@@ -65,7 +79,11 @@ const serverConfig = {
   module: {
     rules: [
       {
-        test: [/\.svg$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        test: /\.(woff|woff2|eot|ttf)$/,
+        loader: "url-loader?limit=100000"
+      },
+      {
+        test: /\.(svg|png|jpg|gif)$/,
         loader: "file-loader",
         options: {
           name: "public/media/[name].[ext]",
@@ -75,6 +93,7 @@ const serverConfig = {
       },
       {
         test: /\.css$/,
+        include: /node_modules/,
         use: [
           {
             loader: "css-loader/locals"

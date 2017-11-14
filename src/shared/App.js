@@ -1,14 +1,23 @@
 import React, { Component } from "react";
+import { Grid, Header } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React in the Server</h2>
-        </div>
-        <p className="App-intro">Isn't this cool?</p>
-      </div>
+      <Grid columns={3} divided>
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h1">Col-1</Header>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h1">Col-2</Header>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h1">Col-3</Header>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 }
