@@ -5,11 +5,16 @@ import "semantic-ui-css/semantic.min.css";
 class App extends Component {
   constructor(props) {
     super(props);
+    let initialData;
     if (props.initialData) {
-      this.state = {
-        users: props.initialData
-      };
+      initialData = props.initialData;
+    } else {
+      initialData = window.__INITIAL_DATA__;
+      delete window.__INITIAL_DATA__;
     }
+    this.state = {
+      users: initialData
+    };
   }
 
   render() {
